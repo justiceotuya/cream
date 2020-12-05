@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:cream_platform_app/data/model/failed_responses_model.dart';
+import 'package:cream_platform_app/data/model/failed_or_normal_responses_model.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -51,7 +51,7 @@ abstract class NetworkExceptions with _$NetworkExceptions {
       case 401:
       case 403:
       return NetworkExceptions.defaultError(
-          FailedResponsesModel.fromJson(response.data).message);
+          FailedOrNormalResponsesModel.fromJson(response.data).message);
       break;
       case 404:
         return NetworkExceptions.notFound("Not found");
