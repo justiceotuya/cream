@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 final WinnerBidApiRepository _repository = WinnerBidApiRepository();
 
-class WinnerBidProviders extends ChangeNotifier {
+class BidWinnerProvider extends ChangeNotifier {
   BuildContext _context;
   CustomProgressIndicator _progressIndicator;
 

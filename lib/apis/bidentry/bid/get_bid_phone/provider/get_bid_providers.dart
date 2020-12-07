@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 final GetBidPhoneApiRepository _repository = GetBidPhoneApiRepository();
 
-class GetBidProviders extends ChangeNotifier {
+class GetBidEntryPhoneProviders extends ChangeNotifier {
   BuildContext _context;
   CustomProgressIndicator _progressIndicator;
 

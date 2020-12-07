@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 final OpenNumberBidApiRepository _repository = OpenNumberBidApiRepository();
 
-class OpenNumberProviders extends ChangeNotifier {
+class OpenIDProviders extends ChangeNotifier {
   BuildContext _context;
   CustomProgressIndicator _progressIndicator;
 

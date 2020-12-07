@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 final MakeBidApiRepository _repository = MakeBidApiRepository();
 
-class GetBidProviders extends ChangeNotifier {
+class MakeBidProviders extends ChangeNotifier {
   BuildContext _context;
   CustomProgressIndicator _progressIndicator;
 

@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 final GetOrDeleteIDApiRepository _repository = GetOrDeleteIDApiRepository();
 
-class GetAllBidEntryStatisticsProviders extends ChangeNotifier {
+class GetOrDeleteProvider extends ChangeNotifier {
   BuildContext _context;
   CustomProgressIndicator _progressIndicator;
 
