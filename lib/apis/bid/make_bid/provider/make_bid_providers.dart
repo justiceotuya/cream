@@ -1,4 +1,4 @@
-import 'package:cream_platform_app/apis/bid/make_bid/repository/get_bid_repository.dart';
+import 'package:cream_platform_app/apis/bid/make_bid/repository/make_bid_repository.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/network/network_exceptions.dart';
 import 'package:cream_platform_app/screen/ui/progress_indicator.dart';

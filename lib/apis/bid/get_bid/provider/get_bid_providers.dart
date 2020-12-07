@@ -1,12 +1,12 @@
-import 'package:cream_platform_app/apis/bid/make_bid/repository/bid_repository.dart';
+import 'package:cream_platform_app/apis/bid/get_bid/repository/get_bid_repository.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/network/network_exceptions.dart';
 import 'package:cream_platform_app/screen/ui/progress_indicator.dart';
 import 'package:flutter/cupertino.dart';
 
-final BidApiRepository _repository = BidApiRepository();
+final GetBidApiRepository _repository = GetBidApiRepository();
 
-class BidProviders extends ChangeNotifier {
+class GetBidProviders extends ChangeNotifier {
   BuildContext _context;
   CustomProgressIndicator _progressIndicator;
 
@@ -15,10 +15,10 @@ class BidProviders extends ChangeNotifier {
     this._progressIndicator = CustomProgressIndicator(this._context);
   }
 
-  void bid({@required Map map}) async {
+  void bid({@required int page, @required int size}) async {
     try {
       _progressIndicator.show();
-      final _response = await _repository.bid(data: map);
+      final _response = await _repository.getAllBids(page: page, size: size);
       _response.when(success: (success) async {
         await _progressIndicator.dismiss();
       }, failure: (NetworkExceptions error) async {

@@ -1,19 +1,14 @@
-class GetBidModel {
+class MakeBidModel {
   bool status;
   String message;
-  List<Data> data;
+  Data data;
 
-  GetBidModel({this.status, this.message, this.data});
+  MakeBidModel({this.status, this.message, this.data});
 
-  GetBidModel.fromJson(Map<String, dynamic> json) {
+  MakeBidModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = new List<Data>();
-      json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -21,7 +16,7 @@ class GetBidModel {
     data['status'] = this.status;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data.toJson();
     }
     return data;
   }
