@@ -1,3 +1,4 @@
+import 'package:cream_platform_app/common/pref_manager_provider.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/instances.dart';
 import 'package:cream_platform_app/helper/route.dart';
@@ -29,6 +30,7 @@ class LoginProviders extends ChangeNotifier {
         preferencesHelper.saveValue(
             key: AppString.keepMeSignedIn, value: keepMeSignedIn);
         pushReplace(context: _context, child: MyHomePage(bottomNavIndex: 8));
+        PrefManagerProvider.getData();
       }, failure: (NetworkExceptions error) async {
         await _progressIndicator.dismiss();
         showToast(this._context,

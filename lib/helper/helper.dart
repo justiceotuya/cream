@@ -89,14 +89,12 @@ bool isPasswordCompliant(String password, [int minLength = 8]) {
   bool _hasUppercase = password.contains(new RegExp(r'[A-Z]'));
   bool _hasDigits = password.contains(new RegExp(r'[0-9]'));
   bool _hasLowercase = password.contains(new RegExp(r'[a-z]'));
-  bool _hasSpecialCharacters =
-      password.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+  // bool _hasSpecialCharacters = password.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   bool _hasMinLength = password.length >= minLength;
   return _hasDigits &
       _hasUppercase &
       _hasLowercase &
-      _hasMinLength &
-      _hasSpecialCharacters;
+      _hasMinLength;
 }
 
 /// @ shuffle a list
@@ -168,6 +166,8 @@ void showCircleDialogBox(
 Future<Options> getDioHeader({String token}) async {
   return Options(headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
 }
+
+
 
 List<String> _initials = ["070", "080", "081", '090', "091", "071"];
 

@@ -2,6 +2,8 @@ import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../text_view_widget.dart';
+
 // ignore: must_be_immutable
 class FloatingNoBorderEditTextWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -65,43 +67,58 @@ class FloatingNoBorderEditTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 48,
-      child: TextFormField(
-        onChanged: textCallBack,
-        maxLength: maxLength,
-        controller: controller,
-        focusNode: focusNode,
-        cursorColor: black,
-        // ignore: missing_return
-        validator: validator,
-        textAlign: textAlign,
-        style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w600),
-        obscureText: obsecure,
-        enabled: isEnabled,
-        keyboardType: textInputType,
-        inputFormatters: inputFormatters,
-        decoration: InputDecoration(
-          suffixIcon: Visibility(
-            visible: isPassword,
-            child: IconButton(
-                iconSize: iconSize,
-                icon: !togglePassword
-                    ? Icon(
-                        Icons.visibility_off,
-                        color: textColor8,
-                      )
-                    : Icon(
-                        Icons.visibility,
-                        color: textColor8,
-                      ),
-                onPressed: togglePasswordCallback),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 48,
+          child: TextFormField(
+            onChanged: textCallBack,
+            maxLength: maxLength,
+            controller: controller,
+            focusNode: focusNode,
+            cursorColor: black,
+            // ignore: missing_return
+            validator: validator,
+            textAlign: textAlign,
+            style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w600),
+            obscureText: obsecure,
+            enabled: isEnabled,
+            keyboardType: textInputType,
+            inputFormatters: inputFormatters,
+            decoration: InputDecoration(
+              suffixIcon: Visibility(
+                visible: isPassword,
+                child: IconButton(
+                    iconSize: iconSize,
+                    icon: !togglePassword
+                        ? Icon(
+                            Icons.visibility_off,
+                            color: textColor8,
+                          )
+                        : Icon(
+                            Icons.visibility,
+                            color: textColor8,
+                          ),
+                    onPressed: togglePasswordCallback),
+              ),
+              labelText: hint,
+              labelStyle: labelStyle,
+              floatingLabelBehavior: floatingLabelBehavior,
+            ),
           ),
-          labelText: hint,
-          labelStyle: labelStyle,
-          floatingLabelBehavior: floatingLabelBehavior,
         ),
-      ),
+        Visibility(
+          visible: isValidationError,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 3,),
+              TextViewWidget(text: err, fontStyle: FontStyle.normal, color: red,)
+            ],
+          ),
+        )
+      ],
     );
   }
 }

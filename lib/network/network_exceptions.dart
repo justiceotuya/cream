@@ -119,6 +119,7 @@ abstract class NetworkExceptions with _$NetworkExceptions {
         return NetworkExceptions.unexpectedError();
       }
     } else {
+      print('Error.: ${error.toString()}');
       if (error.toString().contains("is not a subtype of")) {
         return NetworkExceptions.unableToProcess();
       } else {

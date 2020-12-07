@@ -1,3 +1,4 @@
+import 'package:cream_platform_app/screen/authentication/change_password/provider/change_password_provider.dart';
 import 'package:cream_platform_app/screen/authentication/forgot_password/provider/forgot_password_providers.dart';
 import 'package:cream_platform_app/screen/authentication/login/provider/login_providers.dart';
 import 'package:cream_platform_app/screen/authentication/signup/provider/signup_providers.dart';
@@ -14,5 +15,6 @@ class Providers {
     ChangeNotifierProvider<LoginProviders>(create: (_) => LoginProviders()),
     ChangeNotifierProvider<UtilityProvider>(create: (_) => UtilityProvider()),
     ChangeNotifierProvider<ForgotPasswordProviders>(create: (_) => ForgotPasswordProviders()),
+    ChangeNotifierProvider<ChangePasswordProviders>(create: (_) => ChangePasswordProviders()),
   ];
 }
