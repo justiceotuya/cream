@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 final FindBidStatusFindApiRepository _repository =
     FindBidStatusFindApiRepository();
 
-class GetAllBidEntryStatisticsProviders extends ChangeNotifier {
+class GetOrDeleteProvider extends ChangeNotifier {
   BuildContext _context;
   CustomProgressIndicator _progressIndicator;
 
