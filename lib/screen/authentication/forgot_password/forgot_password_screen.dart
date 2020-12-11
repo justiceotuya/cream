@@ -3,40 +3,34 @@ import 'package:cream_platform_app/helper/image_loader_helper.dart';
 import 'package:cream_platform_app/helper/route.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
-import 'package:cream_platform_app/screen/authentication/forgot_password/forgot_password_screen.dart';
-import 'package:cream_platform_app/screen/authentication/login/provider/login_providers.dart';
-import 'package:cream_platform_app/screen/authentication/signup/signup.dart';
+import 'package:cream_platform_app/screen/authentication/login/login_page.dart';
 import 'package:cream_platform_app/screen/ui/bid_custom_raised_btton.dart';
-import 'package:cream_platform_app/screen/ui/custom_no_padding_check_box.dart';
 import 'package:cream_platform_app/screen/ui/input_widgets/floating_edit_text_widget.dart';
 import 'package:cream_platform_app/screen/ui/text_view_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'model/get_token_model.dart';
+import 'forgot_password_verify_code_screen.dart';
+import 'provider/forgot_password_providers.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPasswordPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool _isChecked = false;
-  bool _togglePassword = true;
-  bool _isUserNameError = false;
-  bool _isPasswordError = false;
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  bool _emailError = false;
 
-  LoginProviders _loginProviders;
+  ForgotPasswordProviders _forgotPasswordProviders;
 
-  final TextEditingController _userNameOrPhoneNumberController =
-      TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailAddressController = TextEditingController();
 
   @override
   void initState() {
-    _loginProviders = Provider.of<LoginProviders>(context, listen: false);
-    _loginProviders.initialize(context);
+    _forgotPasswordProviders =
+        Provider.of<ForgotPasswordProviders>(context, listen: false);
+    _forgotPasswordProviders.initialize(context);
     super.initState();
   }
 
@@ -59,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 46,
             ),
             TextViewWidget(
-              text: 'Login',
+              text: 'Recover Password',
               textSize: 22,
               textAlign: TextAlign.left,
               maxLines: 1,
@@ -71,79 +65,25 @@ class _LoginPageState extends State<LoginPage> {
               height: 39,
             ),
             FloatingBorderEditTextWidget(
-              controller: _userNameOrPhoneNumberController,
-              err: 'valid phone number is required',
-              hint: 'Mobile Number',
-              maxLength: 11,
-              isValidationError: _isUserNameError,
+              controller: _emailAddressController,
+              err: 'valid email address is required',
+              hint: 'Enter Email Address',
+              isValidationError: _emailError,
               labelStyle: TextStyle(color: textColor8, fontSize: 16),
-              textInputType: TextInputType.text,
-              textCallBack: (v) => setState(() => _isUserNameError = false),
+              textInputType: TextInputType.emailAddress,
+              textCallBack: (v) => setState(() => _emailError = false),
             ),
             SizedBox(
               height: 40,
             ),
-            FloatingBorderEditTextWidget(
-              controller: _passwordController,
-              isPassword: true,
-              isValidationError: _isPasswordError,
-              obsecure: _togglePassword,
-              togglePassword: _togglePassword,
-              togglePasswordCallback: () =>
-                  setState(() => _togglePassword = !_togglePassword),
-              err: 'password is required',
-              hint: 'Password',
-              labelStyle: TextStyle(color: textColor8, fontSize: 16),
-              textInputType: TextInputType.text,
-              textCallBack: (v) => setState(() => _isPasswordError = false),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    NoPaddingCheckbox(
-                      isMarked: _isChecked,
-                      onChange: (val) => setState(() => _isChecked = val),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    TextViewWidget(
-                      text: 'Remember me',
-                      textSize: 14,
-                      color: black,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ],
-                ),
-                TextViewWidget(
-                  text: 'Forgot password?',
-                  textSize: 14,
-                  onTap: () => pushReplace(
-                      context: context, child: ForgotPasswordPage()),
-                  color: blue,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.normal,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
             Container(
               height: 48,
               child: BidCustomButtonWidget(
-                onPressed: () => _loginUser(),
+                onPressed: () => _forgottenPassword(),
                 color: black,
                 splashColor: black3,
                 textColor: white,
-                text: 'Login',
+                text: 'Submit',
               ),
             ),
             SizedBox(
@@ -152,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
             Center(
               child: Text.rich(
                 TextSpan(
-                  text: 'Don\'t have an account?  ',
+                  text: 'Remember password?  ',
                   style: TextStyle(
                       fontSize: 16,
                       color: textColor8,
@@ -161,8 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                     TextSpan(
                       recognizer: TapGestureRecognizer()
                         ..onTap = () =>
-                            pushReplace(context: context, child: SignupPage()),
-                      text: 'Register',
+                            pushReplace(context: context, child: LoginPage()),
+                      text: 'Login',
                       style: TextStyle(
                           fontSize: 16,
                           color: blue,
@@ -218,20 +158,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _loginUser() {
-    if (!isPhoneNumberValid(_userNameOrPhoneNumberController.text)) {
-      setState(() => _isUserNameError = true);
+  void _forgottenPassword() {
+    if (!validateEmail(_emailAddressController.text)) {
+      setState(() => _emailError = true);
       return;
     }
-    if (_passwordController.text.isEmpty) {
-      setState(() => _isPasswordError = true);
-      return;
-    }
-    _loginProviders.loginUser(
-        map: GetTokenModel.toJson(
-          phoneNumber: _userNameOrPhoneNumberController.text,
-          password: _passwordController.text,
-        ),
-        keepMeSignedIn: _isChecked);
+    pushReplace(context: context, child: ForgotPasswordVerifyCodePage());
+    // _forgotPasswordProviders.forgotPassword(emailAddress: _emailAddressController.text);
   }
 }

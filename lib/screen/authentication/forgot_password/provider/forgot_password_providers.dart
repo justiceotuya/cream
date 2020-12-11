@@ -15,10 +15,10 @@ class ForgotPasswordProviders extends ChangeNotifier {
     this._progressIndicator = CustomProgressIndicator(this._context);
   }
 
-  void forgotPassword({@required String phoneNumber}) async {
+  void forgotPassword({@required String emailAddress}) async {
     try {
       _progressIndicator.show();
-      final _response = await _repository.forgotPassword(phoneNumber: phoneNumber);
+      final _response = await _repository.forgotPassword(phoneNumber: emailAddress);
       _response.when(success: (success) async {
         await _progressIndicator.dismiss();
         print('Success: ${success.message}');
