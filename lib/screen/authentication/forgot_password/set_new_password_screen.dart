@@ -1,5 +1,4 @@
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
 import 'package:cream_platform_app/screen/ui/bid_custom_raised_btton.dart';
@@ -7,32 +6,19 @@ import 'package:cream_platform_app/screen/ui/input_widgets/floating_edit_text_wi
 import 'package:cream_platform_app/screen/ui/text_view_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'provider/forgot_password_providers.dart';
-import 'set_new_password_screen.dart';
-
-class ForgotPasswordVerifyCodePage extends StatefulWidget {
+class SetNewPasswordPage extends StatefulWidget {
   @override
-  _ForgotPasswordVerifyCodePageState createState() =>
-      _ForgotPasswordVerifyCodePageState();
+  _SetNewPasswordPageState createState() => _SetNewPasswordPageState();
 }
 
-class _ForgotPasswordVerifyCodePageState
-    extends State<ForgotPasswordVerifyCodePage> {
-  bool _codeError = false;
+class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
+  bool _newPasswordError = false;
+  bool _confirmNewPasswordError = false;
 
-  ForgotPasswordProviders _forgotPasswordProviders;
-
-  final TextEditingController _codeController = TextEditingController();
-
-  @override
-  void initState() {
-    _forgotPasswordProviders =
-        Provider.of<ForgotPasswordProviders>(context, listen: false);
-    _forgotPasswordProviders.initialize(context);
-    super.initState();
-  }
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmNewPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +52,7 @@ class _ForgotPasswordVerifyCodePageState
             ),
             TextViewWidget(
               text:
-                  'Code sent. Check your mail for code, enter it to reset your code.',
+                  'Enter new password.',
               textSize: 14,
               textAlign: TextAlign.left,
               color: textColor6,
@@ -77,13 +63,26 @@ class _ForgotPasswordVerifyCodePageState
               height: 39,
             ),
             FloatingBorderEditTextWidget(
-              controller: _codeController,
-              err: 'valid code is required',
-              hint: 'Enter Code',
-              isValidationError: _codeError,
+              controller: _newPasswordController,
+              err: 'valid password format is required',
+              hint: 'Enter New Password',
+              isValidationError: _newPasswordError,
               labelStyle: TextStyle(color: textColor8, fontSize: 16),
-              textInputType: TextInputType.number,
-              textCallBack: (v) => setState(() => _codeError = false),
+              textInputType: TextInputType.text,
+              textCallBack: (v) => setState(() => _newPasswordError = false),
+            ),
+            SizedBox(
+              height: 39,
+            ),
+            FloatingBorderEditTextWidget(
+              controller: _confirmNewPasswordController,
+              err: 'Passwords do not match!',
+              hint: 'Confirm New Password',
+              isValidationError: _confirmNewPasswordError,
+              labelStyle: TextStyle(color: textColor8, fontSize: 16),
+              textInputType: TextInputType.text,
+              textCallBack: (v) =>
+                  setState(() => _confirmNewPasswordError = false),
             ),
             SizedBox(
               height: 40,
@@ -99,31 +98,7 @@ class _ForgotPasswordVerifyCodePageState
               ),
             ),
             SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  text: 'Didn\'t get code?  ',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: textColor8,
-                      fontWeight: FontWeight.normal),
-                  children: <TextSpan>[
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()..onTap = () => null,
-                      text: 'Resend',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: blue,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 49,
+              height: 69,
             ),
             Text.rich(
               TextSpan(
@@ -169,6 +144,6 @@ class _ForgotPasswordVerifyCodePageState
   }
 
   void _forgottenPassword() {
-    pushReplace(context: context, child: SetNewPasswordPage());
+    // _forgotPasswordProviders.forgotPassword(emailAddress: _emailAddressController.text);
   }
 }
