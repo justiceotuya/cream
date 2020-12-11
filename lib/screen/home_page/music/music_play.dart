@@ -131,23 +131,39 @@ class _MusicPlayState extends State<MusicPlay> {
                 margin: EdgeInsets.only(left: 90, right: 80),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.add_circle_outline,
                       color: grey,
                     ),
-                    IconButton(
-                        icon: _favourite
-                            ? Icon(
-                                Icons.favorite,
-                                color: red,
-                              )
-                            : Icon(
-                                Icons.favorite_border_outlined,
-                                color: red,
-                              ),
-                        onPressed: () =>
-                            setState(() => _favourite = !_favourite))
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            icon: _favourite
+                                ? Icon(
+                                    Icons.favorite,
+                                    color: red,
+                                  )
+                                : Icon(
+                                    Icons.favorite_border_outlined,
+                                    color: red,
+                                  ),
+                            onPressed: () =>
+                                setState(() => _favourite = !_favourite)),
+                        TextViewWidget(
+                          text: '12',
+                          textSize: 14,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          color: black,
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

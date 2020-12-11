@@ -175,7 +175,7 @@ class _ProfileState extends State<Profile> {
             children: [
               Popularity(
                 icon: upload,
-                text: 'Upload',
+                text: 'Total Upload',
                 number: 10,
               ),
               Container(
@@ -185,18 +185,8 @@ class _ProfileState extends State<Profile> {
               ),
               Popularity(
                 icon: heart,
-                text: 'Likes',
+                text: 'Total Likes',
                 number: 40,
-              ),
-              Container(
-                height: 35,
-                width: 0.5,
-                color: borderColor1,
-              ),
-              Popularity(
-                icon: share,
-                text: 'Shares',
-                number: 54,
               ),
             ],
           ),

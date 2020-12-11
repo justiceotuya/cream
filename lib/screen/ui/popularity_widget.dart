@@ -24,13 +24,14 @@ class Popularity extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontStyle: FontStyle.normal,
         ),
+        SizedBox(height: 8,),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             ImageLoader(
               path: icon,
-              width: 15,
-              height: 15,
+              width: 20,
+              height: 20,
               dColor: black,
             ),
             SizedBox(
@@ -38,7 +39,7 @@ class Popularity extends StatelessWidget {
             ),
             TextViewWidget(
               text: text,
-              textSize: 10,
+              textSize: 14,
               textAlign: TextAlign.center,
               color: yellow1,
               fontWeight: FontWeight.normal,

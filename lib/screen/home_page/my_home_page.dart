@@ -44,8 +44,8 @@ class _MyHomePageState extends State<MyHomePage>
   final _widgetList = <Widget>[
     Search(), // 0
     Container(),// 1
-    Container(),// 2
-    Profile(),// 3
+    Profile(),// 2
+    Home(),// 3
     Bid(),// 4
     Wallet(),// 5
     Upload(),// 6
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage>
     ImagePlay(),// 14
   ];
 
-  final iconList = <String>[iconSearch, upNext, email, person];
+  final iconList = <String>[iconSearch, upNext, person, home];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -171,10 +171,10 @@ class _MyHomePageState extends State<MyHomePage>
         _showSheet();
       }
       if (bottomNavIndex == 2) {
-        setState(() => title = "Message");
+        setState(() => title = "Profile");
       }
       if (bottomNavIndex == 3) {
-        setState(() => title = "Profile");
+        setState(() => title = "Home");
       }
       if (bottomNavIndex == 4) {
         setState(() => title = "Cream Bid");
