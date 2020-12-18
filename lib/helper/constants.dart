@@ -1,6 +1,6 @@
 /// set services.network timeout
 final int timeOut = 15;
-final String baseURL = "http://155.254.19.119:8080/"; // baseUrl
+final String baseURL = "http://api.creamplatform.com/"; // baseUrl
 final String usersPrefKey = "key"; // prefKey
 
 /// margins
