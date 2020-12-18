@@ -24,7 +24,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   ForgotPasswordProviders _forgotPasswordProviders;
 
-  final TextEditingController _emailAddressController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
   @override
   void initState() {
@@ -65,12 +65,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               height: 39,
             ),
             FloatingBorderEditTextWidget(
-              controller: _emailAddressController,
-              err: 'valid email address is required',
-              hint: 'Enter Email Address',
+              controller: _phoneNumberController,
+              err: 'valid phone number is required',
+              hint: 'Mobile Number',
               isValidationError: _emailError,
               labelStyle: TextStyle(color: textColor8, fontSize: 16),
-              textInputType: TextInputType.emailAddress,
+              textInputType: TextInputType.number,
+              maxLength: 11,
               textCallBack: (v) => setState(() => _emailError = false),
             ),
             SizedBox(
@@ -159,11 +160,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   void _forgottenPassword() {
-    if (!validateEmail(_emailAddressController.text)) {
+    if (!isPhoneNumberValid(_phoneNumberController.text)) {
       setState(() => _emailError = true);
       return;
     }
-    pushReplace(context: context, child: ForgotPasswordVerifyCodePage());
-    // _forgotPasswordProviders.forgotPassword(emailAddress: _emailAddressController.text);
+    _forgotPasswordProviders.forgotPassword(
+        phoneNumber: _phoneNumberController.text);
   }
 }
