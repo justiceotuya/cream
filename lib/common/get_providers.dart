@@ -12,6 +12,7 @@ import 'package:cream_platform_app/apis/bidentry/statistics/provider/get_all_bid
 import 'package:cream_platform_app/apis/biditem/find/find/provider/find_bid_item_find_providers.dart';
 import 'package:cream_platform_app/apis/biditem/find/status/provider/find_bid_item_status_providers.dart';
 import 'package:cream_platform_app/apis/biditem/id/provider/get_or_delete_bid_providers.dart';
+import 'package:cream_platform_app/apis/comment/get_comment/provider/get_comment_providers.dart';
 import 'package:cream_platform_app/screen/authentication/change_password/provider/change_password_provider.dart';
 import 'package:cream_platform_app/screen/authentication/forgot_password/provider/forgot_password_providers.dart';
 import 'package:cream_platform_app/screen/authentication/login/provider/login_providers.dart';
@@ -58,5 +59,7 @@ class Providers {
         create: (_) => GetOrDeleteProvider()),
     ChangeNotifierProvider<FindBidStatusProvider>(
         create: (_) => FindBidStatusProvider()),
+    ChangeNotifierProvider<GetCommentsProviders>(
+        create: (_) => GetCommentsProviders()),
   ];
 }
