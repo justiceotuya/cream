@@ -14,6 +14,8 @@ import 'package:cream_platform_app/apis/biditem/find/status/provider/find_bid_it
 import 'package:cream_platform_app/apis/biditem/id/provider/get_or_delete_bid_providers.dart';
 import 'package:cream_platform_app/apis/comment/create_comment/provider/create_comment_providers.dart';
 import 'package:cream_platform_app/apis/comment/get_comment/provider/get_comment_providers.dart';
+import 'package:cream_platform_app/apis/vote/get_vote/provider/get_vote_providers.dart';
+import 'package:cream_platform_app/apis/vote/post_vote/provider/post_a_vote_providers.dart';
 import 'package:cream_platform_app/screen/authentication/change_password/provider/change_password_provider.dart';
 import 'package:cream_platform_app/screen/authentication/forgot_password/provider/forgot_password_providers.dart';
 import 'package:cream_platform_app/screen/authentication/login/provider/login_providers.dart';
@@ -62,7 +64,8 @@ class Providers {
         create: (_) => FindBidStatusProvider()),
     ChangeNotifierProvider<GetCommentsProviders>(
         create: (_) => GetCommentsProviders()),
-    ChangeNotifierProvider<CreateCommentsProviders>(
-        create: (_) => CreateCommentsProviders()),
+    ChangeNotifierProvider<CreateCommentsProviders>(create: (_) => CreateCommentsProviders()),
+    ChangeNotifierProvider<PostAVoteProviders>(create: (_) => PostAVoteProviders()),
+    ChangeNotifierProvider<GetVoteProviders>(create: (_) => GetVoteProviders()),
   ];
 }
