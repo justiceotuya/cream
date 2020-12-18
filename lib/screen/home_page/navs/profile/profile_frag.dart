@@ -21,13 +21,10 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _editPersonalInfo = false;
   bool _editPassword = false;
   bool _bid = false;
   bool _content = false;
-  bool _isOldPassword = false;
-  bool _isNewPassword = false;
   ChangePasswordProviders _changePasswordProviders;
 
   List<ListItem> _dropdownItems = [
@@ -289,6 +286,7 @@ class _ProfileState extends State<Profile> {
         CustomExpansionTile(
           leading: setting,
           title: 'Settings',
+          onTap: () {},
         ),
       ],
     );
