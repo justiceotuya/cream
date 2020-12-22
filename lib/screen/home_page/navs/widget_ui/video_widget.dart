@@ -1,7 +1,35 @@
+import 'package:cream_platform_app/apis/content/create/model/create_model.dart';
+import 'package:cream_platform_app/apis/content/create/provider/create_providers.dart';
 import 'package:cream_platform_app/screen/ui/input_widgets/custom_edit_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class VideoWidget extends StatelessWidget {
+class VideoWidget extends StatefulWidget {
+  @override
+  _VideoWidgetState createState() => _VideoWidgetState();
+}
+
+class _VideoWidgetState extends State<VideoWidget> {
+  final TextEditingController _videoTitleController = TextEditingController();
+  final TextEditingController _artisteController = TextEditingController();
+  final TextEditingController _yearReleasedController = TextEditingController();
+  final TextEditingController _recordLabelController = TextEditingController();
+
+  bool _videoTitleError = false;
+  bool _artisteError = false;
+  bool _yearReleaseError = false;
+  bool _recordLabelError = false;
+
+  CreateContentsProviders _contentsProviders;
+
+  @override
+  void initState() {
+    _contentsProviders =
+        Provider.of<CreateContentsProviders>(context, listen: false);
+    _contentsProviders.initialize(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -9,19 +37,23 @@ class VideoWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         EditTextWidget(
-          controller: null,
+          controller: _videoTitleController,
           hint: 'Video title',
-          err: '',
+          err: 'Whats this video title?',
           textInputType: TextInputType.text,
+          isValidationError: _videoTitleError,
+          textCallBack: (_) => setState(() => _videoTitleError = false),
         ),
         SizedBox(
           height: 10,
         ),
         EditTextWidget(
-          controller: null,
+          controller: _artisteController,
           hint: 'Owner name',
-          err: '',
+          err: 'Whats the artiste name?',
+          isValidationError: _artisteError,
           textInputType: TextInputType.text,
+          textCallBack: (_) => setState(() => _artisteError = false),
         ),
         SizedBox(
           height: 10,
@@ -30,10 +62,11 @@ class VideoWidget extends StatelessWidget {
           children: [
             Expanded(
               child: EditTextWidget(
-                controller: null,
+                controller: _yearReleasedController,
                 hint: 'Year recorded',
-                err: '',
+                err: 'What year was this recorded?',
                 textInputType: TextInputType.text,
+                textCallBack: (_) => setState(() => _yearReleaseError = false),
               ),
             ),
             SizedBox(
@@ -41,10 +74,11 @@ class VideoWidget extends StatelessWidget {
             ),
             Expanded(
               child: EditTextWidget(
-                controller: null,
+                controller: _recordLabelController,
                 hint: 'YouTube Link',
-                err: '',
+                err: 'Whats the Youtube link?',
                 textInputType: TextInputType.text,
+                textCallBack: (_) => setState(() => _recordLabelError = false),
               ),
             ),
           ],
@@ -72,7 +106,7 @@ class VideoWidget extends StatelessWidget {
           err: '',
           showChoosButton: true,
           isEnabled: false,
-          onTap: () {},
+          onTap: () => _uploadContent(),
           style: TextStyle(fontStyle: FontStyle.italic),
           textInputType: TextInputType.text,
         ),
@@ -81,5 +115,27 @@ class VideoWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _uploadContent() {
+    if (_validateData())
+      _contentsProviders.create(
+          map: CreateModel.toJson(
+              category: 'MP4',
+              type: 'VIDEO',
+              description: 'This is my new music video',
+              name: _videoTitleController.text));
+  }
+
+  bool _validateData() {
+    if (_videoTitleController.text.isEmpty) {
+      setState(() => _videoTitleError = true);
+      return false;
+    }
+    if (_artisteController.text.isEmpty) {
+      setState(() => _artisteError = true);
+      return false;
+    }
+    return true;
   }
 }

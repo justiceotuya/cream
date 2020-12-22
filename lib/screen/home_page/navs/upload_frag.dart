@@ -1,9 +1,10 @@
-import 'package:cream_platform_app/helper/helper.dart';
+import 'package:cream_platform_app/apis/content/create/provider/create_providers.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/screen/ui/custom_no_padding_check_box.dart';
 import 'package:cream_platform_app/screen/ui/custom_no_padding_radio_button_widget.dart';
 import 'package:cream_platform_app/screen/ui/custom_search_box.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'widget_ui/file_widget.dart';
 import 'widget_ui/image_widget.dart';
@@ -23,13 +24,12 @@ class _UploadState extends State<Upload> {
   bool _isFile = false;
   int _widget = 1;
   bool _isChecked = false;
+  CreateContentsProviders _contentsProviders;
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3)).then((value) async {
-      showCircleDialogBox(
-          context: context, content: 'Content\nSuccessfully\nUploaded');
-    });
+    _contentsProviders =
+        Provider.of<CreateContentsProviders>(context, listen: false);
     super.initState();
   }
 
@@ -93,7 +93,7 @@ class _UploadState extends State<Upload> {
                 SizedBox(
                   height: 34,
                 ),
-                _bodyWidget(),
+                BodyWidget(_widget),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -131,14 +131,6 @@ class _UploadState extends State<Upload> {
     );
   }
 
-  Widget _bodyWidget() {
-    if (_widget == 1) return MusicWidget();
-    if (_widget == 2) return VideoWidget();
-    if (_widget == 3) return ImageWidget();
-    if (_widget == 4) return FileWidget();
-    return Container();
-  }
-
   void _switchState(int i) {
     setState(() {
       _widget = i;
@@ -170,5 +162,21 @@ class _UploadState extends State<Upload> {
         _isFile = true;
       }
     });
+  }
+}
+
+// ignore: must_be_immutable
+class BodyWidget extends StatelessWidget {
+  int id;
+
+  BodyWidget(this.id);
+
+  @override
+  Widget build(BuildContext context) {
+    if (id == 1) return MusicWidget();
+    if (id == 2) return VideoWidget();
+    if (id == 3) return ImageWidget();
+    if (id == 4) return FileWidget();
+    return Container();
   }
 }
