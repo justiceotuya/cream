@@ -1,3 +1,4 @@
+import 'package:cream_platform_app/common/pref_manager_provider.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
@@ -68,6 +69,21 @@ class _ProfileState extends State<Profile> {
     _changePasswordProviders.confirmNewPasswordError = false;
     super.dispose();
   }
+
+  TextEditingController userNamController =
+      TextEditingController(text: PrefManagerProvider?.userData?.email ?? '');
+  TextEditingController firstNameController = TextEditingController(
+      text: PrefManagerProvider?.userData?.firstName ?? '');
+  TextEditingController lastNameController = TextEditingController(
+      text: PrefManagerProvider?.userData?.lastName ?? '');
+  TextEditingController phoneController =
+      TextEditingController(text: PrefManagerProvider?.userData?.phone ?? '');
+  TextEditingController sexController =
+      TextEditingController(text: PrefManagerProvider?.userData?.sex ?? '');
+  TextEditingController stateController =
+      TextEditingController(text: PrefManagerProvider?.userData?.state ?? '');
+  TextEditingController addressController =
+      TextEditingController(text: PrefManagerProvider?.userData?.address ?? '');
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +217,14 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: 10,
                 ),
-                EditPersonInformation(),
+                EditPersonInformation(
+                    userNamController: userNamController,
+                    firstNameController: firstNameController,
+                    lastNameController: lastNameController,
+                    phoneController: phoneController,
+                    addressController: addressController,
+                    sexController: sexController,
+                    stateController: stateController),
                 SizedBox(
                   height: 10,
                 ),
