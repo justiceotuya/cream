@@ -13,9 +13,11 @@ class EditFormField extends StatelessWidget {
     this.controller,
     this.initialValue,
     this.autoValidate = false,
+    this.obSecureText = false,
     this.autocorrect = true,
     this.enabled = true,
     this.onTapped,
+    this.visibleIconTapped,
     this.keyboardType,
     this.maxLines = 1,
     this.minLines = 1,
@@ -24,6 +26,7 @@ class EditFormField extends StatelessWidget {
     this.focusedColorBorder,
     this.labelStyle,
   });
+
   String label;
   String hint;
   IconData prefixIcon;
@@ -38,9 +41,11 @@ class EditFormField extends StatelessWidget {
   bool autocorrect;
   bool autoValidate;
   bool enabled;
+  bool obSecureText;
 
   bool clickable;
   Function() onTapped;
+  Function() visibleIconTapped;
 
   TextInputType keyboardType;
   int maxLines;
@@ -55,66 +60,76 @@ class EditFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return onTapped != null
         ? InkWell(
-      onTap: onTapped,
-      child: IgnorePointer(
-        ignoring: true,
-        child: TextFormField(
-          keyboardType: keyboardType,
-          maxLines: maxLines,
-          minLines: minLines,
-          enabled: enabled,
-          autovalidate: autoValidate ?? false,
-          onSaved: onSaved,
-          validator: validator,
-          autocorrect: autocorrect,
-          initialValue: initialValue,
-          controller: controller,
-          inputFormatters: inputFormatters,
-          decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: grey1),
+            onTap: onTapped,
+            child: IgnorePointer(
+              ignoring: true,
+              child: TextFormField(
+                keyboardType: keyboardType,
+                maxLines: maxLines,
+                minLines: minLines,
+                enabled: enabled,
+                autovalidate: autoValidate ?? false,
+                onSaved: onSaved,
+                validator: validator,
+                obscureText: obSecureText,
+                autocorrect: autocorrect,
+                initialValue: initialValue,
+                controller: controller,
+                inputFormatters: inputFormatters,
+                decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: grey1),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: focusedColorBorder),
+                    ),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: grey1),
+                    ),
+                    hintText: hint,
+                    labelText: label,
+                    labelStyle: labelStyle,
+                    prefixIcon: prefixIcon != null
+                        ? IconButton(icon: Icon(prefixIcon), onPressed: visibleIconTapped)
+                        : null,
+                    suffixIcon: suffixIcon != null
+                        ? IconButton(icon: Icon(suffixIcon), onPressed: visibleIconTapped)
+                        : null),
               ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: focusedColorBorder),
-              ),
-              border: UnderlineInputBorder(
-                borderSide: BorderSide(color: grey1),
-              ),
-              hintText: hint,
-              labelText: label,
-              labelStyle: labelStyle,
-              prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-              suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null),
-        ),
-      ),
-    )
+            ),
+          )
         : TextFormField(
-      keyboardType: keyboardType,
-      enabled: enabled,
-      autovalidate: autoValidate ?? false,
-      onSaved: onSaved,
-      maxLines: maxLines,
-      autocorrect: autocorrect,
-      minLines: minLines,
-      maxLength: maxLength,
-      validator: validator,
-      initialValue: initialValue,
-      controller: controller,
-      decoration: InputDecoration(
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: grey1),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: focusedColorBorder),
-          ),
-          border: UnderlineInputBorder(
-            borderSide: BorderSide(color: grey1),
-          ),
-          hintText: hint,
-          labelText: label,
-          labelStyle: labelStyle,
-          prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-          suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null),
-    );
+            keyboardType: keyboardType,
+            enabled: enabled,
+            autovalidate: autoValidate ?? false,
+            onSaved: onSaved,
+            maxLines: maxLines,
+            autocorrect: autocorrect,
+            minLines: minLines,
+            maxLength: maxLength,
+            validator: validator,
+            obscureText: obSecureText,
+            initialValue: initialValue,
+            controller: controller,
+            decoration: InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: grey1),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: focusedColorBorder),
+                ),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: grey1),
+                ),
+                hintText: hint,
+                labelText: label,
+                labelStyle: labelStyle,
+                prefixIcon: prefixIcon != null
+                    ? IconButton(icon: Icon(prefixIcon), onPressed: visibleIconTapped)
+                    : null,
+                suffixIcon: suffixIcon != null
+                    ? IconButton(icon: Icon(suffixIcon), onPressed: visibleIconTapped)
+                    : null),
+          );
   }
 }

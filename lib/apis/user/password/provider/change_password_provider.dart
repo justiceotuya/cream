@@ -8,6 +8,9 @@ final ChangePasswordApiRepository _repository = ChangePasswordApiRepository();
 
 class ChangePasswordProvider with ChangeNotifier {
   bool autoValidate = false;
+  bool hideOldPassword = true;
+  bool newOldPassword = true;
+  bool confirmNewPassword = true;
   String gender;
   String state;
 
@@ -40,6 +43,21 @@ class ChangePasswordProvider with ChangeNotifier {
 
   void toggleAutoValidate(bool validate) {
     autoValidate = validate;
+    notifyListeners();
+  }
+
+  void toggleOldPasswordVisibility() {
+    hideOldPassword = !hideOldPassword;
+    notifyListeners();
+  }
+
+  void toggleNewPasswordVisibility() {
+    newOldPassword = !newOldPassword;
+    notifyListeners();
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    confirmNewPassword = !confirmNewPassword;
     notifyListeners();
   }
 }

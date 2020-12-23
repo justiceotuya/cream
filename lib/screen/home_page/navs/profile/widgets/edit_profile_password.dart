@@ -42,6 +42,12 @@ class EditPassword extends StatelessWidget {
                       labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       focusedColorBorder: yellow,
+                      obSecureText: provider.hideOldPassword,
+                      suffixIcon: provider.hideOldPassword
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      visibleIconTapped: () =>
+                          provider.toggleOldPasswordVisibility(),
                       autoValidate: provider.autoValidate,
                       keyboardType: TextInputType.text,
                       validator: Validators.validateString(),
@@ -55,6 +61,12 @@ class EditPassword extends StatelessWidget {
                             labelStyle: TextStyle(color: textColor6),
                             onSaved: (value) {},
                             focusedColorBorder: yellow,
+                            obSecureText: provider.newOldPassword,
+                            suffixIcon: provider.newOldPassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            visibleIconTapped: () =>
+                                provider.toggleNewPasswordVisibility(),
                             autoValidate: provider.autoValidate,
                             keyboardType: TextInputType.text,
                             validator: Validators.validateString(),
@@ -70,6 +82,12 @@ class EditPassword extends StatelessWidget {
                             labelStyle: TextStyle(color: textColor6),
                             onSaved: (value) {},
                             focusedColorBorder: yellow,
+                            obSecureText: provider.confirmNewPassword,
+                            suffixIcon: provider.confirmNewPassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            visibleIconTapped: () =>
+                                provider.toggleConfirmPasswordVisibility(),
                             autoValidate: provider.autoValidate,
                             keyboardType: TextInputType.text,
                             validator: Validators.validateString(),
