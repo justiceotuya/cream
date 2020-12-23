@@ -3,12 +3,10 @@ import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
-import 'package:cream_platform_app/screen/authentication/change_password/provider/change_password_provider.dart';
 import 'package:cream_platform_app/screen/ui/custom_expansion_tile.dart';
 import 'package:cream_platform_app/screen/ui/popularity_widget.dart';
 import 'package:cream_platform_app/screen/ui/text_view_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../bid_frag.dart';
 import 'widgets/bid_history.dart';
@@ -26,7 +24,6 @@ class _ProfileState extends State<Profile> {
   bool _editPassword = false;
   bool _bid = false;
   bool _content = false;
-  ChangePasswordProviders _changePasswordProviders;
 
   List<ListItem> _dropdownItems = [
     ListItem(1, "All"),
@@ -40,9 +37,6 @@ class _ProfileState extends State<Profile> {
 
   void initState() {
     super.initState();
-    _changePasswordProviders =
-        Provider.of<ChangePasswordProviders>(context, listen: false);
-    _changePasswordProviders.initialize(context);
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
     _selectedItem = _dropdownItems[0];
   }
@@ -63,13 +57,6 @@ class _ProfileState extends State<Profile> {
     return items;
   }
 
-  @override
-  void dispose() {
-    _changePasswordProviders.newPasswordError = false;
-    _changePasswordProviders.confirmNewPasswordError = false;
-    super.dispose();
-  }
-
   TextEditingController userNamController =
       TextEditingController(text: PrefManagerProvider?.userData?.email ?? '');
   TextEditingController firstNameController = TextEditingController(
@@ -84,6 +71,9 @@ class _ProfileState extends State<Profile> {
       TextEditingController(text: PrefManagerProvider?.userData?.state ?? '');
   TextEditingController addressController =
       TextEditingController(text: PrefManagerProvider?.userData?.address ?? '');
+  TextEditingController oldPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmNewPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -241,20 +231,10 @@ class _ProfileState extends State<Profile> {
         ),
         Visibility(
             visible: _editPassword,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                EditPassword(
-                  togglePasswordCallback: null,
-                  isObsecure: null,
-                  toggledPasswordIcon: null,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
+            child: EditPassword(
+              oldPasswordController: oldPasswordController,
+              newPasswordController: newPasswordController,
+              confirmNewPasswordController: confirmNewPasswordController,
             )),
         Divider(
           thickness: 0.5,

@@ -47,7 +47,7 @@ class EditPersonInformation extends StatelessWidget {
                     child: EditFormField(
                       controller: firstNameController,
                       label: 'First name',
-                      labelStyle: TextStyle(color: black),
+                      labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       focusedColorBorder: yellow,
                       autoValidate: provider.autoValidate,
@@ -62,7 +62,7 @@ class EditPersonInformation extends StatelessWidget {
                     child: EditFormField(
                       controller: lastNameController,
                       label: 'Last name',
-                      labelStyle: TextStyle(color: black),
+                      labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       focusedColorBorder: yellow,
                       autoValidate: provider.autoValidate,
@@ -78,7 +78,7 @@ class EditPersonInformation extends StatelessWidget {
                     child: EditFormField(
                       controller: userNamController,
                       label: 'Email',
-                      labelStyle: TextStyle(color: black),
+                      labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       focusedColorBorder: yellow,
                       autoValidate: provider.autoValidate,
@@ -93,7 +93,7 @@ class EditPersonInformation extends StatelessWidget {
                     child: EditFormField(
                       controller: phoneController,
                       label: 'Phone',
-                      labelStyle: TextStyle(color: black),
+                      labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       focusedColorBorder: yellow,
                       autoValidate: provider.autoValidate,
@@ -109,7 +109,7 @@ class EditPersonInformation extends StatelessWidget {
                     child: EditFormField(
                       controller: sexController,
                       label: 'Sex',
-                      labelStyle: TextStyle(color: black),
+                      labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       onTapped: () => provider.pickGender(
                           context: context,
@@ -128,7 +128,7 @@ class EditPersonInformation extends StatelessWidget {
                     child: EditFormField(
                       controller: stateController,
                       label: 'State',
-                      labelStyle: TextStyle(color: black),
+                      labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       focusedColorBorder: yellow,
                       autoValidate: provider.autoValidate,
@@ -148,7 +148,7 @@ class EditPersonInformation extends StatelessWidget {
                     child: EditFormField(
                       controller: addressController,
                       label: 'Address',
-                      labelStyle: TextStyle(color: black),
+                      labelStyle: TextStyle(color: textColor6),
                       onSaved: (value) {},
                       focusedColorBorder: yellow,
                       autoValidate: provider.autoValidate,

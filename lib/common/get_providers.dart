@@ -15,10 +15,10 @@ import 'package:cream_platform_app/apis/biditem/id/provider/get_or_delete_bid_pr
 import 'package:cream_platform_app/apis/comment/create_comment/provider/create_comment_providers.dart';
 import 'package:cream_platform_app/apis/comment/get_comment/provider/get_comment_providers.dart';
 import 'package:cream_platform_app/apis/content/create/provider/create_providers.dart';
+import 'package:cream_platform_app/apis/user/password/provider/change_password_provider.dart';
 import 'package:cream_platform_app/apis/user/update/provider/update_profile_provider.dart';
 import 'package:cream_platform_app/apis/vote/get_vote/provider/get_vote_providers.dart';
 import 'package:cream_platform_app/apis/vote/post_vote/provider/post_a_vote_providers.dart';
-import 'package:cream_platform_app/screen/authentication/change_password/provider/change_password_provider.dart';
 import 'package:cream_platform_app/screen/authentication/forgot_password/provider/forgot_password_providers.dart';
 import 'package:cream_platform_app/screen/authentication/login/provider/login_providers.dart';
 import 'package:cream_platform_app/screen/authentication/signup/provider/signup_providers.dart';
@@ -37,8 +37,8 @@ class Providers {
     ChangeNotifierProvider<UtilityProvider>(create: (_) => UtilityProvider()),
     ChangeNotifierProvider<ForgotPasswordProviders>(
         create: (_) => ForgotPasswordProviders()),
-    ChangeNotifierProvider<ChangePasswordProviders>(
-        create: (_) => ChangePasswordProviders()),
+    ChangeNotifierProvider<ChangePasswordProvider>(
+        create: (_) => ChangePasswordProvider()),
     ChangeNotifierProvider<GetBidProviders>(create: (_) => GetBidProviders()),
     ChangeNotifierProvider<MakeBidProviders>(create: (_) => MakeBidProviders()),
     ChangeNotifierProvider<OpenIDProviders>(create: (_) => OpenIDProviders()),
@@ -66,10 +66,14 @@ class Providers {
         create: (_) => FindBidStatusProvider()),
     ChangeNotifierProvider<GetCommentsProviders>(
         create: (_) => GetCommentsProviders()),
-    ChangeNotifierProvider<CreateCommentsProviders>(create: (_) => CreateCommentsProviders()),
-    ChangeNotifierProvider<PostAVoteProviders>(create: (_) => PostAVoteProviders()),
+    ChangeNotifierProvider<CreateCommentsProviders>(
+        create: (_) => CreateCommentsProviders()),
+    ChangeNotifierProvider<PostAVoteProviders>(
+        create: (_) => PostAVoteProviders()),
     ChangeNotifierProvider<GetVoteProviders>(create: (_) => GetVoteProviders()),
-    ChangeNotifierProvider<CreateContentsProviders>(create: (_) => CreateContentsProviders()),
-    ChangeNotifierProvider<UpdateProfileProvider>(create: (_) => UpdateProfileProvider()),
+    ChangeNotifierProvider<CreateContentsProviders>(
+        create: (_) => CreateContentsProviders()),
+    ChangeNotifierProvider<UpdateProfileProvider>(
+        create: (_) => UpdateProfileProvider()),
   ];
 }
