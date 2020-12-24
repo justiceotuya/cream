@@ -11,7 +11,7 @@ class ContentHistoryApiRepository {
       {@required int page}) async {
     try {
       final _response = await dioClient.makeGetRequest(
-          "content/personal?page=$page&size=5",
+          "content/personal?page=$page&size=20",
           options:
               await getDioHeader(token: PrefManagerProvider?.userData?.token));
       return ApiResult.success(data: ContentHistoryModel.fromJson(_response));
