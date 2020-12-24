@@ -1,3 +1,4 @@
+import 'package:cream_platform_app/common/pref_manager_provider.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
 import 'package:cream_platform_app/helper/instances.dart';
 import 'package:cream_platform_app/helper/route.dart';
@@ -89,7 +90,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 Center(
                   child: TextViewWidget(
-                    text: 'Log out, Olabisi?',
+                    text: 'Log out, ${PrefManagerProvider?.userData?.firstName ?? ''}?',
                     textSize: 16,
                     textAlign: TextAlign.right,
                     maxLines: 1,
