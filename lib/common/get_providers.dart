@@ -15,6 +15,7 @@ import 'package:cream_platform_app/apis/biditem/id/provider/get_or_delete_bid_pr
 import 'package:cream_platform_app/apis/comment/create_comment/provider/create_comment_providers.dart';
 import 'package:cream_platform_app/apis/comment/get_comment/provider/get_comment_providers.dart';
 import 'package:cream_platform_app/apis/content/create/provider/create_providers.dart';
+import 'package:cream_platform_app/apis/content/personal/provider/history_providers.dart';
 import 'package:cream_platform_app/apis/user/password/provider/change_password_provider.dart';
 import 'package:cream_platform_app/apis/user/update/provider/update_profile_provider.dart';
 import 'package:cream_platform_app/apis/vote/get_vote/provider/get_vote_providers.dart';
@@ -73,7 +74,7 @@ class Providers {
     ChangeNotifierProvider<GetVoteProviders>(create: (_) => GetVoteProviders()),
     ChangeNotifierProvider<CreateContentsProviders>(
         create: (_) => CreateContentsProviders()),
-    ChangeNotifierProvider<UpdateProfileProvider>(
-        create: (_) => UpdateProfileProvider()),
+    ChangeNotifierProvider<UpdateProfileProvider>(create: (_) => UpdateProfileProvider()),
+    ChangeNotifierProvider<ContentHistoryProviders>(create: (_) => ContentHistoryProviders()),
   ];
 }

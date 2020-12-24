@@ -1,3 +1,4 @@
+import 'package:cream_platform_app/apis/content/personal/provider/history_providers.dart';
 import 'package:cream_platform_app/common/pref_manager_provider.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
@@ -7,6 +8,7 @@ import 'package:cream_platform_app/screen/ui/custom_expansion_tile.dart';
 import 'package:cream_platform_app/screen/ui/popularity_widget.dart';
 import 'package:cream_platform_app/screen/ui/text_view_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../bid_frag.dart';
 import 'widgets/bid_history.dart';
@@ -26,19 +28,26 @@ class _ProfileState extends State<Profile> {
   bool _content = false;
 
   List<ListItem> _dropdownItems = [
-    ListItem(1, "All"),
-    ListItem(2, "Second Item"),
-    ListItem(3, "Third Item"),
-    ListItem(4, "Fourth Item")
+    ListItem(1, "ALL"),
+    ListItem(2, "DOCUMENT"),
+    ListItem(3, "IMAGE"),
+    ListItem(4, "MUSIC"),
+    ListItem(4, "VIDEO")
   ];
   List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
 
   ListItem _selectedItem;
+  ContentHistoryProviders _contentHistoryProviders;
 
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
     _selectedItem = _dropdownItems[0];
+    _contentHistoryProviders =
+        Provider.of<ContentHistoryProviders>(context, listen: false);
+    _contentHistoryProviders.initialize(context);
+    _contentHistoryProviders.initScrollListener();
+    _contentHistoryProviders.history();
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
@@ -275,9 +284,10 @@ class _ProfileState extends State<Profile> {
                   height: 10,
                 ),
                 ContentHistory(
-                  dropdownMenuItems: _dropdownMenuItems,
-                  selectedItem: _selectedItem,
-                ),
+                    dropdownMenuItems: _dropdownMenuItems,
+                    selectedItem: _selectedItem,
+                    contentHistoryProviders: _contentHistoryProviders,
+                    onChanged: (item) => setState(() => _selectedItem = item)),
                 SizedBox(
                   height: 10,
                 ),
