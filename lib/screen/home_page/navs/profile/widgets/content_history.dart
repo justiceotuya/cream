@@ -21,6 +21,7 @@ class ContentHistory extends StatelessWidget {
 
   ContentHistoryProviders contentHistoryProviders;
 
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ContentHistoryProviders>(
