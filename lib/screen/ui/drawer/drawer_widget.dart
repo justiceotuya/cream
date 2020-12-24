@@ -94,7 +94,7 @@ class DrawerWidget extends StatelessWidget {
                     textSize: 16,
                     textAlign: TextAlign.right,
                     maxLines: 1,
-                    color: textColor5,
+                    color: textColor5 ,
                     fontWeight: FontWeight.normal,
                     fontStyle: FontStyle.normal,
                     onTap: () => _logOut(context),
