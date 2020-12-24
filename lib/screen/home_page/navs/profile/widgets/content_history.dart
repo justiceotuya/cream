@@ -21,7 +21,6 @@ class ContentHistory extends StatelessWidget {
 
   ContentHistoryProviders contentHistoryProviders;
 
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ContentHistoryProviders>(
@@ -75,131 +74,139 @@ class ContentHistory extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: provider.data.map((data) {
                         if (selectedItem.name == 'ALL') {
-                          return Row(
-                            children: [
-                              Container(
-                                height: 67,
-                                width: 67,
-                                decoration: BoxDecoration(
-                                    color: black,
-                                    borderRadius: BorderRadius.circular(10)),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 2),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: getWidth(context) * 0.1,
-                                          child: TextViewWidget(
-                                            text: '${data?.name ?? ''}',
-                                            textSize: 10,
-                                            textAlign: TextAlign.left,
-                                            maxLines: 1,
-                                            color: black,
-                                            fontWeight: FontWeight.w400,
-                                            fontStyle: FontStyle.normal,
+                          return InkWell(
+                            onTap: () => provider.toggleContent(id: data.id),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 67,
+                                  width: 67,
+                                  decoration: BoxDecoration(
+                                      color: black,
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 2),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: getWidth(context) * 0.1,
+                                            child: TextViewWidget(
+                                              text: '${data?.name ?? ''}',
+                                              textSize: 10,
+                                              textAlign: TextAlign.left,
+                                              maxLines: 1,
+                                              color: black,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                          width: getWidth(context) * 0.2,
-                                          child: TextViewWidget(
-                                            text: 'Sub title',
-                                            textSize: 10,
-                                            textAlign: TextAlign.left,
-                                            maxLines: 1,
-                                            color: textColor1,
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle: FontStyle.normal,
+                                          Container(
+                                            width: getWidth(context) * 0.2,
+                                            child: TextViewWidget(
+                                              text: 'Sub title',
+                                              textSize: 10,
+                                              textAlign: TextAlign.left,
+                                              maxLines: 1,
+                                              color: textColor1,
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle: FontStyle.normal,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  B('Hide', black, white),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  B('Promote', white, black),
-                                ],
-                              )
-                            ],
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    B('Hide', black, white),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    B('Promote', white, black),
+                                  ],
+                                )
+                              ],
+                            ),
                           );
                         }
                         return selectedItem.name == data.type
-                            ? Row(
-                                children: [
-                                  Container(
-                                    height: 67,
-                                    width: 67,
-                                    decoration: BoxDecoration(
-                                        color: black,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(left: 2),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: getWidth(context) * 0.1,
-                                              child: TextViewWidget(
-                                                text: '${data?.name ?? ''}',
-                                                textSize: 10,
-                                                textAlign: TextAlign.left,
-                                                maxLines: 1,
-                                                color: black,
-                                                fontWeight: FontWeight.w400,
-                                                fontStyle: FontStyle.normal,
+                            ? InkWell(
+                                onTap: () =>
+                                    provider.toggleContent(id: data.id),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 67,
+                                      width: 67,
+                                      decoration: BoxDecoration(
+                                          color: black,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 2),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: getWidth(context) * 0.1,
+                                                child: TextViewWidget(
+                                                  text: '${data?.name ?? ''}',
+                                                  textSize: 10,
+                                                  textAlign: TextAlign.left,
+                                                  maxLines: 1,
+                                                  color: black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: getWidth(context) * 0.2,
-                                              child: TextViewWidget(
-                                                text: 'Sub title',
-                                                textSize: 10,
-                                                textAlign: TextAlign.left,
-                                                maxLines: 1,
-                                                color: textColor1,
-                                                fontWeight: FontWeight.normal,
-                                                fontStyle: FontStyle.normal,
+                                              Container(
+                                                width: getWidth(context) * 0.2,
+                                                child: TextViewWidget(
+                                                  text: 'Sub title',
+                                                  textSize: 10,
+                                                  textAlign: TextAlign.left,
+                                                  maxLines: 1,
+                                                  color: textColor1,
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      B('Hide', black, white),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      B('Promote', white, black),
-                                    ],
-                                  )
-                                ],
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        B('Hide', black, white),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        B('Promote', white, black),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               )
                             : Container();
                       }).toList(),
