@@ -13,9 +13,11 @@ class SetNewPasswordPage extends StatefulWidget {
 }
 
 class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
-  bool _newPasswordError = false;
-  bool _confirmNewPasswordError = false;
+  bool _togglePassword = true;
+  bool _isPasswordError = false;
 
+  bool _toggleConfirmPassword = true;
+  bool _isConfirmPasswordError = false;
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmNewPasswordController =
       TextEditingController();
@@ -51,8 +53,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
               height: 10,
             ),
             TextViewWidget(
-              text:
-                  'Enter new password.',
+              text: 'Enter new password.',
               textSize: 14,
               textAlign: TextAlign.left,
               color: textColor6,
@@ -64,25 +65,35 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
             ),
             FloatingBorderEditTextWidget(
               controller: _newPasswordController,
-              err: 'valid password format is required',
-              hint: 'Enter New Password',
-              isValidationError: _newPasswordError,
+              isPassword: true,
+              isValidationError: _isPasswordError,
+              obsecure: _togglePassword,
+              togglePassword: _togglePassword,
+              togglePasswordCallback: () =>
+                  setState(() => _togglePassword = !_togglePassword),
+              err: 'password is required',
+              hint: 'Password',
               labelStyle: TextStyle(color: textColor8, fontSize: 16),
               textInputType: TextInputType.text,
-              textCallBack: (v) => setState(() => _newPasswordError = false),
+              textCallBack: (v) => setState(() => _isPasswordError = false),
             ),
             SizedBox(
               height: 39,
             ),
             FloatingBorderEditTextWidget(
               controller: _confirmNewPasswordController,
-              err: 'Passwords do not match!',
-              hint: 'Confirm New Password',
-              isValidationError: _confirmNewPasswordError,
+              isPassword: true,
+              isValidationError: _isConfirmPasswordError,
+              obsecure: _toggleConfirmPassword,
+              togglePassword: _toggleConfirmPassword,
+              togglePasswordCallback: () => setState(
+                  () => _toggleConfirmPassword = !_toggleConfirmPassword),
+              err: 'confirm password is required',
+              hint: 'Confirm Password',
               labelStyle: TextStyle(color: textColor8, fontSize: 16),
               textInputType: TextInputType.text,
               textCallBack: (v) =>
-                  setState(() => _confirmNewPasswordError = false),
+                  setState(() => _isConfirmPasswordError = false),
             ),
             SizedBox(
               height: 40,
