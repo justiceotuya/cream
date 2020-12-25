@@ -1,5 +1,5 @@
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
 import 'package:cream_platform_app/screen/ui/bid_custom_raised_btton.dart';
@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/forgot_password_providers.dart';
-import 'set_new_password_screen.dart';
 
 class ForgotPasswordVerifyCodePage extends StatefulWidget {
   @override
@@ -91,7 +90,9 @@ class _ForgotPasswordVerifyCodePageState
             Container(
               height: 48,
               child: BidCustomButtonWidget(
-                onPressed: () => _forgottenPassword(),
+                onPressed: () => PageRouter.gotoNamed(
+                    Routes.SET_NEW_PASSWORD, context,
+                    clearStack: true),
                 color: black,
                 splashColor: black3,
                 textColor: white,
@@ -166,9 +167,5 @@ class _ForgotPasswordVerifyCodePageState
         ),
       ),
     );
-  }
-
-  void _forgottenPassword() {
-    pushReplace(context: context, child: SetNewPasswordPage());
   }
 }

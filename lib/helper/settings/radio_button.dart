@@ -1,10 +1,10 @@
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/screen/ui/text_view_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../helper.dart';
-import '../route.dart';
 import 'setting_item.dart';
 import 'setting_style.dart';
 
@@ -165,7 +165,9 @@ Future<void> showEntryFieldDialog({
           ],
         ),
         actions: <Widget>[
-          FlatButton(child: const Text('Cancel'), onPressed: () => pop(c)),
+          FlatButton(
+              child: const Text('Cancel'),
+              onPressed: () => PageRouter.goBack(c)),
           FlatButton(
               child: const Text('OK'),
               onPressed: () => onChanged(controller.text, c))

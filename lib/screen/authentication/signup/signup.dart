@@ -1,10 +1,10 @@
 import 'package:cream_platform_app/helper/constants.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
+import 'package:cream_platform_app/navigator/route.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
-import 'package:cream_platform_app/screen/authentication/login/login_page.dart';
 import 'package:cream_platform_app/screen/authentication/signup/model/register_model.dart';
 import 'package:cream_platform_app/screen/ui/bid_custom_raised_btton.dart';
 import 'package:cream_platform_app/screen/ui/input_widgets/floating_dropdown_widget.dart';
@@ -224,8 +224,9 @@ class _SignupPageState extends State<SignupPage> {
                   children: <TextSpan>[
                     TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () =>
-                            pushReplace(context: context, child: LoginPage()),
+                        ..onTap = () => PageRouter.gotoNamed(
+                            Routes.REGISTER, context,
+                            clearStack: true),
                       text: 'Login',
                       style: TextStyle(
                           fontSize: 16,

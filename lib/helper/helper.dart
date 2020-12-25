@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/screen/home_page/my_home_page.dart';
 import 'package:cream_platform_app/screen/ui/custom_alert_dialog.dart';
@@ -91,10 +91,7 @@ bool isPasswordCompliant(String password, [int minLength = 8]) {
   bool _hasLowercase = password.contains(new RegExp(r'[a-z]'));
   // bool _hasSpecialCharacters = password.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   bool _hasMinLength = password.length >= minLength;
-  return _hasDigits &
-      _hasUppercase &
-      _hasLowercase &
-      _hasMinLength;
+  return _hasDigits & _hasUppercase & _hasLowercase & _hasMinLength;
 }
 
 /// @ shuffle a list
@@ -121,7 +118,7 @@ void openEndDrawer(GlobalKey<ScaffoldState> _scaffoldKey) {
 
 /// @close drawer
 void closeEndDrawer(BuildContext context) {
-  pop(context);
+  PageRouter.goBack(context);
 }
 
 /// @ show dialog
@@ -131,8 +128,7 @@ void showFundDialogBox({@required BuildContext context}) {
       builder: (BuildContext context) => CustomFundAlertDialog(
             yesOnPressed: () {
               Navigator.of(context).pop();
-              pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 5));
+              PageRouter.gotoWidget(MyHomePage(bottomNavIndex: 5), context);
             },
             noOnPressed: () => Navigator.of(context).pop(),
           ));
@@ -166,8 +162,6 @@ void showCircleDialogBox(
 Future<Options> getDioHeader({String token}) async {
   return Options(headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
 }
-
-
 
 List<String> _initials = ["070", "080", "081", '090', "091", "071"];
 

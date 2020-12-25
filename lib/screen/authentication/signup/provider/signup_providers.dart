@@ -1,7 +1,7 @@
 import 'package:cream_platform_app/helper/helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
+import 'package:cream_platform_app/navigator/route.dart';
 import 'package:cream_platform_app/network/network_exceptions.dart';
-import 'package:cream_platform_app/screen/authentication/login/login_page.dart';
 import 'package:cream_platform_app/screen/authentication/signup/model/register_model.dart';
 import 'package:cream_platform_app/screen/authentication/signup/repository/sign_up_repository.dart';
 import 'package:cream_platform_app/screen/ui/progress_indicator.dart';
@@ -25,7 +25,7 @@ class SignUpProviders extends ChangeNotifier {
       _response.when(success: (RegisterModel success) async {
         await _progressIndicator.dismiss();
         showToast(_context, message: success?.message);
-        pushReplace(context: _context, child: LoginPage());
+        PageRouter.gotoNamed(Routes.REGISTER, _context, clearStack: true);
       }, failure: (NetworkExceptions error) async {
         await _progressIndicator.dismiss();
         showToast(this._context,

@@ -1,11 +1,9 @@
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
-import 'package:cream_platform_app/screen/authentication/forgot_password/forgot_password_screen.dart';
 import 'package:cream_platform_app/screen/authentication/login/provider/login_providers.dart';
-import 'package:cream_platform_app/screen/authentication/signup/signup.dart';
 import 'package:cream_platform_app/screen/ui/bid_custom_raised_btton.dart';
 import 'package:cream_platform_app/screen/ui/custom_no_padding_check_box.dart';
 import 'package:cream_platform_app/screen/ui/input_widgets/floating_edit_text_widget.dart';
@@ -125,8 +123,9 @@ class _LoginPageState extends State<LoginPage> {
                 TextViewWidget(
                   text: 'Forgot password?',
                   textSize: 14,
-                  onTap: () => pushReplace(
-                      context: context, child: ForgotPasswordPage()),
+                  onTap: () => PageRouter.gotoNamed(
+                      Routes.FORGOT_PASSWORD, context,
+                      clearStack: true),
                   color: blue,
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.normal,
@@ -160,8 +159,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: <TextSpan>[
                     TextSpan(
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () =>
-                            pushReplace(context: context, child: SignupPage()),
+                        ..onTap = () => PageRouter.gotoNamed(
+                            Routes.REGISTER, context,
+                            clearStack: true),
                       text: 'Register',
                       style: TextStyle(
                           fontSize: 16,

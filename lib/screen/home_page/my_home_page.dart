@@ -1,5 +1,6 @@
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
+import 'package:cream_platform_app/navigator/route.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
 import 'package:cream_platform_app/screen/home_page/image/image_play.dart';
@@ -95,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
+    globalContext = context;
     return Scaffold(
       extendBody: true,
       key: _scaffoldKey,

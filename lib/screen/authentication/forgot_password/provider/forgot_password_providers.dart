@@ -1,11 +1,9 @@
 import 'package:cream_platform_app/helper/helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/network/network_exceptions.dart';
 import 'package:cream_platform_app/screen/authentication/forgot_password/repository/forgot_password_repository.dart';
 import 'package:cream_platform_app/screen/ui/progress_indicator.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../forgot_password_verify_code_screen.dart';
 
 final ForgotPasswordApiRepository _repository = ForgotPasswordApiRepository();
 
@@ -25,7 +23,8 @@ class ForgotPasswordProviders extends ChangeNotifier {
           await _repository.forgotPassword(phoneNumber: phoneNumber);
       _response.when(success: (success) async {
         await _progressIndicator.dismiss();
-        pushReplace(context: _context, child: ForgotPasswordVerifyCodePage());
+        PageRouter.gotoNamed(Routes.FORGOT_PASSWORD, _context,
+            clearStack: true);
       }, failure: (NetworkExceptions error) async {
         await _progressIndicator.dismiss();
         showToast(this._context,

@@ -2,6 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cream_platform_app/data/model/failed_or_normal_responses_model.dart';
+import 'package:cream_platform_app/helper/helper.dart';
+import 'package:cream_platform_app/helper/instances.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
+import 'package:cream_platform_app/navigator/route.dart';
+import 'package:cream_platform_app/screen/splash/splash_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -49,10 +54,17 @@ abstract class NetworkExceptions with _$NetworkExceptions {
       case 201:
       case 400:
       case 401:
+        Future.delayed(Duration(milliseconds: 100), () async {
+          await preferencesHelper.remove();
+          showToast(globalContext, message: 'Session Timeout!');
+          return PageRouter.gotoWidget(SplashScreen(), globalContext,
+              clearStack: true);
+        });
+        break;
       case 403:
-      return NetworkExceptions.defaultError(
-          FailedOrNormalResponsesModel.fromJson(response.data).message);
-      break;
+        return NetworkExceptions.defaultError(
+            FailedOrNormalResponsesModel.fromJson(response.data).message);
+        break;
       case 404:
         return NetworkExceptions.notFound("Not found");
         break;
@@ -103,7 +115,8 @@ abstract class NetworkExceptions with _$NetworkExceptions {
               break;
           }
         } else if (error is SocketException) {
-          networkExceptions = NetworkExceptions.defaultError('Connection refused');
+          networkExceptions =
+              NetworkExceptions.defaultError('Connection refused');
         } else if (error is TimeoutException) {
           networkExceptions = NetworkExceptions.requestTimeout();
         } else if (error is HttpException) {

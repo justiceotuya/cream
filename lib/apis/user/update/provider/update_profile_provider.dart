@@ -1,7 +1,7 @@
 import 'package:cream_platform_app/apis/user/update/repository/update_profile_repository.dart';
 import 'package:cream_platform_app/helper/helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
 import 'package:cream_platform_app/helper/settings/radio_button.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/network/network_exceptions.dart';
 import 'package:cream_platform_app/screen/ui/progress_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -92,7 +92,7 @@ class UpdateProfileProvider with ChangeNotifier {
       onChanged: (v) {
         this.state = v;
         controller.text = v;
-        pop(context);
+        PageRouter.goBack(context);
         notifyListeners();
       },
     );
@@ -114,7 +114,7 @@ class UpdateProfileProvider with ChangeNotifier {
       onChanged: (v) {
         this.gender = v;
         controller.text = v;
-        pop(context);
+        PageRouter.goBack(context);
         notifyListeners();
       },
     );

@@ -1,5 +1,5 @@
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
 import 'package:cream_platform_app/screen/home_page/my_home_page.dart';
@@ -57,24 +57,27 @@ class _ImageState extends State<Image> {
               path: rOne,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
             Expanded(
                 child: ImageLoader(
               path: rTwo,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
             Expanded(
                 child: ImageLoader(
               path: rThree,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
           ],
         ),
@@ -89,24 +92,27 @@ class _ImageState extends State<Image> {
               path: rFour,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
             Expanded(
                 child: ImageLoader(
               path: rFive,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
             Expanded(
                 child: ImageLoader(
               path: rSix,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
           ],
         ),
@@ -121,24 +127,27 @@ class _ImageState extends State<Image> {
               path: rFive,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
             Expanded(
                 child: ImageLoader(
               path: rSix,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
             Expanded(
                 child: ImageLoader(
               path: rFour,
               width: 100,
               height: 100,
-              onTap: () => pushReplace(
-                  context: context, child: MyHomePage(bottomNavIndex: 14)),
+              onTap: () => PageRouter.gotoWidget(
+                  MyHomePage(bottomNavIndex: 14), context,
+                  clearStack: true),
             )),
           ],
         ),

@@ -1,5 +1,5 @@
 import 'package:cream_platform_app/helper/helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/screen/home_page/my_home_page.dart';
 import 'package:cream_platform_app/screen/ui/text_view_widget.dart';
@@ -77,7 +77,7 @@ class __MusicPlaylistBottomSheetState extends State<_MusicPlaylistBottomSheet> {
             Icons.clear,
             color: black,
           ),
-          onPressed: () => pop(context),
+          onPressed: () => PageRouter.goBack(context),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -99,8 +99,9 @@ class __MusicPlaylistBottomSheetState extends State<_MusicPlaylistBottomSheet> {
                 textSize: 14,
                 textAlign: TextAlign.left,
                 maxLines: 1,
-                onTap: () => pushReplace(
-                    context: context, child: MyHomePage(bottomNavIndex: 6)),
+                onTap: () => PageRouter.gotoWidget(
+                    MyHomePage(bottomNavIndex: 6), context,
+                    clearStack: true),
                 color: black1,
                 fontWeight: FontWeight.normal,
                 fontStyle: FontStyle.normal,
@@ -125,10 +126,8 @@ class __MusicPlaylistBottomSheetState extends State<_MusicPlaylistBottomSheet> {
                     children: [
                       InkWell(
                         onTap: () {
-                          pop(context);
-                          pushReplace(
-                              context: context,
-                              child: MyHomePage(bottomNavIndex: 7));
+                          PageRouter.goBack(context);
+                          PageRouter.gotoWidget(MyHomePage(bottomNavIndex: 7), context,clearStack: true);
                         },
                         child: Container(
                           height: 43,

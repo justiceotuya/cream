@@ -1,11 +1,10 @@
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
 import 'package:cream_platform_app/helper/instances.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
 import 'package:cream_platform_app/resources/string_resources.dart';
-import 'package:cream_platform_app/screen/authentication/login/login_page.dart';
 import 'package:cream_platform_app/screen/home_page/my_home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -29,11 +28,12 @@ class _SplashScreenState extends State<SplashScreen> {
       bool _keepMeSignedIn =
           await preferencesHelper.getBoolValues(key: AppString.keepMeSignedIn);
       if (_keepMeSignedIn)
-        pushReplace(context: context, child: MyHomePage(bottomNavIndex: 8));
+        PageRouter.gotoWidget(MyHomePage(bottomNavIndex: 8), context,
+            clearStack: true);
       else
-        pushReplace(context: context, child: LoginPage());
+        PageRouter.gotoNamed(Routes.LOGIN, context, clearStack: true);
     } else
-      pushReplace(context: context, child: LoginPage());
+      PageRouter.gotoNamed(Routes.LOGIN, context, clearStack: true);
   }
 
   @override

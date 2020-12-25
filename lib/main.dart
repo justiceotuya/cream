@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'common/get_providers.dart';
 import 'common/pref_manager_provider.dart';
 import 'helper/local_manager.dart';
+import 'navigator/route.dart';
 
 void main() async {
   // initialize local storage
@@ -21,14 +22,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        // statusBarColor is used to set Status bar color in Android devices.
+      // statusBarColor is used to set Status bar color in Android devices.
         statusBarColor: Colors.transparent,
         // To make Stataus bar icons color white in Android devices.
         statusBarIconBrightness: Brightness.light,
         // statusBarBrightness is used to set Status bar icon color in iOS.
         statusBarBrightness: Brightness.light
-        // Here light means dark color Status bar icons.
-        ));
+      // Here light means dark color Status bar icons.
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -36,7 +37,12 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.yellow,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'AvertaDemoPE'),
-      home: SplashScreen(),
+      home: Builder(
+        builder: (context) {
+          return SplashScreen();
+        },
+      ),
+      routes: Routes.getRoutes,
     );
   }
 }

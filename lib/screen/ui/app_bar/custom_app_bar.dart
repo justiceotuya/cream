@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
 import 'package:cream_platform_app/screen/home_page/my_home_page.dart';
@@ -34,9 +34,9 @@ class CustomAppBarWidget extends StatelessWidget {
                         icon: Icon(Platform.isIOS
                             ? Icons.arrow_back_ios
                             : Icons.arrow_back),
-                        onPressed: () => pushReplace(
-                            context: context,
-                            child: MyHomePage(bottomNavIndex: 8))),
+                        onPressed: () => PageRouter.gotoWidget(
+                            MyHomePage(bottomNavIndex: 8), context,
+                            clearStack: true)),
                     TextViewWidget(
                       text: title,
                       textSize: 15,

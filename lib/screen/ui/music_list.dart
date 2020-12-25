@@ -1,9 +1,8 @@
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
-import 'package:cream_platform_app/screen/home_page/music/music_play.dart';
 import 'package:cream_platform_app/screen/home_page/my_home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,9 @@ class MusicList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> pushReplace(context: context, child: MyHomePage(bottomNavIndex: pageIndex)),
+      onTap: () => PageRouter.gotoWidget(
+          MyHomePage(bottomNavIndex: pageIndex), context,
+          clearStack: true),
       child: Row(
         children: [
           Expanded(

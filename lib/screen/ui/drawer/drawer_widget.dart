@@ -1,11 +1,10 @@
 import 'package:cream_platform_app/common/pref_manager_provider.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
 import 'package:cream_platform_app/helper/instances.dart';
-import 'package:cream_platform_app/helper/route.dart';
+import 'package:cream_platform_app/navigator/page_router.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:cream_platform_app/resources/image_resources.dart';
 import 'package:cream_platform_app/screen/home_page/my_home_page.dart';
-import 'package:cream_platform_app/screen/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../text_view_widget.dart';
@@ -90,11 +89,12 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 Center(
                   child: TextViewWidget(
-                    text: 'Log out, ${PrefManagerProvider?.userData?.firstName ?? ''}?',
+                    text:
+                        'Log out, ${PrefManagerProvider?.userData?.firstName ?? ''}?',
                     textSize: 16,
                     textAlign: TextAlign.right,
                     maxLines: 1,
-                    color: textColor5 ,
+                    color: textColor5,
                     fontWeight: FontWeight.normal,
                     fontStyle: FontStyle.normal,
                     onTap: () => _logOut(context),
@@ -124,17 +124,18 @@ class DrawerWidget extends StatelessWidget {
   }
 
   void _navigate(BuildContext context, int i) {
-    pop(context);
-    pushReplace(
-        context: context,
-        child: MyHomePage(
+    PageRouter.goBack(context);
+    PageRouter.gotoWidget(
+        MyHomePage(
           bottomNavIndex: i,
-        ));
+        ),
+        context,
+        clearStack: true);
   }
 
   void _logOut(BuildContext context) async {
     await preferencesHelper.remove();
-    pushReplace(context: context, child: SplashScreen());
+    PageRouter.gotoNamed(Routes.SPLASH, context, clearStack: true);
   }
 }
 
