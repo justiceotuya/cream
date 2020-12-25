@@ -1,3 +1,4 @@
+import 'package:cream_platform_app/apis/content/personal/database/content_history_dao.dart';
 import 'package:cream_platform_app/apis/content/personal/provider/history_providers.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../bid_frag.dart';
 
+// ignore: must_be_immutable
 class ContentHistory extends StatelessWidget {
   List<DropdownMenuItem<ListItem>> dropdownMenuItems;
   ListItem selectedItem;
@@ -15,206 +17,215 @@ class ContentHistory extends StatelessWidget {
   ContentHistory({
     @required this.dropdownMenuItems,
     @required this.selectedItem,
-    @required this.contentHistoryProviders,
     @required this.onChanged,
   });
-
-  ContentHistoryProviders contentHistoryProviders;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ContentHistoryProviders>(
-        builder: (_, provider, __) => Container(
-              color: grey2.withOpacity(0.2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextViewWidget(
-                        text: 'Type',
-                        textSize: 14,
-                        textAlign: TextAlign.left,
-                        maxLines: 1,
-                        color: black,
-                        fontWeight: FontWeight.normal,
-                        fontStyle: FontStyle.normal,
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        height: 25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: white,
-                            border: Border.all(color: borderColor)),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                              value: selectedItem,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                size: 12,
-                              ),
-                              items: dropdownMenuItems,
-                              onChanged: onChanged),
+        builder: (_, provider, __) => ValueListenableBuilder(
+            valueListenable: contentHistoryDao.getListenable(),
+            builder: (_, box, __) {
+              if (box.isEmpty) return Container();
+              var _data = contentHistoryDao.convert(box);
+              return Container(
+                color: grey2.withOpacity(0.2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextViewWidget(
+                          text: 'Type',
+                          textSize: 14,
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          color: black,
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FontStyle.normal,
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 130,
-                    child: ListView(
-                      controller: provider.scrollController,
-                      scrollDirection: Axis.horizontal,
-                      children: provider.data.map((data) {
-                        if (selectedItem.name == 'ALL') {
-                          return InkWell(
-                            onTap: () => provider.toggleContent(id: data.id),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 67,
-                                  width: 67,
-                                  decoration: BoxDecoration(
-                                      color: black,
-                                      borderRadius: BorderRadius.circular(10)),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Container(
+                          padding:
+                              const EdgeInsets.only(left: 10.0, right: 10.0),
+                          height: 25,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: white,
+                              border: Border.all(color: borderColor)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                                value: selectedItem,
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  size: 12,
                                 ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(left: 2),
-                                      child: Column(
+                                items: dropdownMenuItems,
+                                onChanged: onChanged),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 130,
+                      child: ListView(
+                        controller: provider.scrollController,
+                        scrollDirection: Axis.horizontal,
+                        children: _data.map((data) {
+                          if (selectedItem.name == 'ALL') {
+                            return InkWell(
+                              onTap: () => provider.toggleContent(id: data.id),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 67,
+                                    width: 67,
+                                    decoration: BoxDecoration(
+                                        color: black,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 2),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: getWidth(context) * 0.1,
+                                              child: TextViewWidget(
+                                                text: '${data?.name ?? ''}',
+                                                textSize: 10,
+                                                textAlign: TextAlign.left,
+                                                maxLines: 1,
+                                                color: black,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: getWidth(context) * 0.2,
+                                              child: TextViewWidget(
+                                                text: 'Sub title',
+                                                textSize: 10,
+                                                textAlign: TextAlign.left,
+                                                maxLines: 1,
+                                                color: textColor1,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle: FontStyle.normal,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      B('Hide', black, white),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      B('Promote', white, black),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            );
+                          }
+                          return selectedItem.name == data.type
+                              ? InkWell(
+                                  onTap: () =>
+                                      provider.toggleContent(id: data.id),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 67,
+                                        width: 67,
+                                        decoration: BoxDecoration(
+                                            color: black,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Container(
-                                            width: getWidth(context) * 0.1,
-                                            child: TextViewWidget(
-                                              text: '${data?.name ?? ''}',
-                                              textSize: 10,
-                                              textAlign: TextAlign.left,
-                                              maxLines: 1,
-                                              color: black,
-                                              fontWeight: FontWeight.w400,
-                                              fontStyle: FontStyle.normal,
+                                            margin: EdgeInsets.only(left: 2),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width:
+                                                      getWidth(context) * 0.1,
+                                                  child: TextViewWidget(
+                                                    text: '${data?.name ?? ''}',
+                                                    textSize: 10,
+                                                    textAlign: TextAlign.left,
+                                                    maxLines: 1,
+                                                    color: black,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontStyle: FontStyle.normal,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width:
+                                                      getWidth(context) * 0.2,
+                                                  child: TextViewWidget(
+                                                    text: 'Sub title',
+                                                    textSize: 10,
+                                                    textAlign: TextAlign.left,
+                                                    maxLines: 1,
+                                                    color: textColor1,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle: FontStyle.normal,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Container(
-                                            width: getWidth(context) * 0.2,
-                                            child: TextViewWidget(
-                                              text: 'Sub title',
-                                              textSize: 10,
-                                              textAlign: TextAlign.left,
-                                              maxLines: 1,
-                                              color: textColor1,
-                                              fontWeight: FontWeight.normal,
-                                              fontStyle: FontStyle.normal,
-                                            ),
+                                          SizedBox(
+                                            height: 8,
                                           ),
+                                          B('Hide', black, white),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          B('Promote', white, black),
                                         ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    B('Hide', black, white),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    B('Promote', white, black),
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 )
-                              ],
-                            ),
-                          );
-                        }
-                        return selectedItem.name == data.type
-                            ? InkWell(
-                                onTap: () =>
-                                    provider.toggleContent(id: data.id),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: 67,
-                                      width: 67,
-                                      decoration: BoxDecoration(
-                                          color: black,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(left: 2),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width: getWidth(context) * 0.1,
-                                                child: TextViewWidget(
-                                                  text: '${data?.name ?? ''}',
-                                                  textSize: 10,
-                                                  textAlign: TextAlign.left,
-                                                  maxLines: 1,
-                                                  color: black,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                              ),
-                                              Container(
-                                                width: getWidth(context) * 0.2,
-                                                child: TextViewWidget(
-                                                  text: 'Sub title',
-                                                  textSize: 10,
-                                                  textAlign: TextAlign.left,
-                                                  maxLines: 1,
-                                                  color: textColor1,
-                                                  fontWeight: FontWeight.normal,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        B('Hide', black, white),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        B('Promote', white, black),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            : Container();
-                      }).toList(),
+                              : Container();
+                        }).toList(),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ));
+                  ],
+                ),
+              );
+            }));
   }
 }
 

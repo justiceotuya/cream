@@ -286,7 +286,6 @@ class _ProfileState extends State<Profile> {
                 ContentHistory(
                     dropdownMenuItems: _dropdownMenuItems,
                     selectedItem: _selectedItem,
-                    contentHistoryProviders: _contentHistoryProviders,
                     onChanged: (item) => setState(() => _selectedItem = item)),
                 SizedBox(
                   height: 10,

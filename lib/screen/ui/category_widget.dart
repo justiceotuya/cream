@@ -1,9 +1,8 @@
-import 'package:cream_platform_app/apis/content/personal/provider/history_providers.dart';
+import 'package:cream_platform_app/apis/content/personal/database/content_history_dao.dart';
 import 'package:cream_platform_app/helper/helper.dart';
 import 'package:cream_platform_app/helper/image_loader_helper.dart';
 import 'package:cream_platform_app/resources/color_resources.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'text_view_widget.dart';
 
@@ -23,81 +22,87 @@ class CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ContentHistoryProviders>(
-        builder: (_, provider, __) => Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ImageLoader(
-                          path: icon,
-                        ),
-                        TextViewWidget(
-                          text: catName,
-                          textSize: 14,
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          color: red,
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.normal,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          height: 14,
-                          width: 1,
-                          color: textColor4,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        TextViewWidget(
-                          text: 'Recently Added',
-                          textSize: 14,
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          color: textColor4,
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.normal,
-                        ),
-                      ],
-                    ),
-                    TextViewWidget(
-                      onTap: () {},
-                      text: 'See all',
-                      textSize: 14,
-                      textAlign: TextAlign.left,
-                      maxLines: 1,
-                      color: red,
-                      fontWeight: FontWeight.normal,
-                      fontStyle: FontStyle.normal,
-                    ),
-                  ],
-                ),
-                Container(
-                  width: getWidth(context),
-                  height: 130,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[300],
-                          offset: Offset(0.0, 0.0), //(x,y)
-                          blurRadius: 2.0,
-                          spreadRadius: 0.1),
+    return ValueListenableBuilder(
+        valueListenable: contentHistoryDao.getListenable(),
+        builder: (_, box, __) {
+          if (box.isEmpty) return Container();
+          var _data = contentHistoryDao.convert(box);
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ImageLoader(
+                        path: icon,
+                      ),
+                      TextViewWidget(
+                        text: catName,
+                        textSize: 14,
+                        textAlign: TextAlign.left,
+                        maxLines: 1,
+                        color: red,
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.normal,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        height: 14,
+                        width: 1,
+                        color: textColor4,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      TextViewWidget(
+                        text: 'Recently Added',
+                        textSize: 14,
+                        textAlign: TextAlign.left,
+                        maxLines: 1,
+                        color: textColor4,
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.normal,
+                      ),
                     ],
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(11.0),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: provider.data
-                          .map((data) => data?.type != type ? Container() : Container(
+                  TextViewWidget(
+                    onTap: () {},
+                    text: 'See all',
+                    textSize: 14,
+                    textAlign: TextAlign.left,
+                    maxLines: 1,
+                    color: red,
+                    fontWeight: FontWeight.normal,
+                    fontStyle: FontStyle.normal,
+                  ),
+                ],
+              ),
+              Container(
+                width: getWidth(context),
+                height: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey[300],
+                        offset: Offset(0.0, 0.0), //(x,y)
+                        blurRadius: 2.0,
+                        spreadRadius: 0.1),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(11.0),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: _data
+                        .map((data) => data?.type != type
+                            ? Container()
+                            : Container(
                                 margin: EdgeInsets.only(right: 12),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,11 +150,12 @@ class CategoryWidget extends StatelessWidget {
                                   ],
                                 ),
                               ))
-                          .toList(),
-                    ),
+                        .toList(),
                   ),
-                )
-              ],
-            ));
+                ),
+              )
+            ],
+          );
+        });
   }
 }
